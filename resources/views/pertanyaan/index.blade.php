@@ -19,9 +19,7 @@
                         Isi
                     </th>
 
-                    <th>
-                        
-                    </th>
+
 
                 </thead>
                 
@@ -38,8 +36,17 @@
 
                         <td>
                             <a href="/jawaban/{{$pertanyaan->id}}" class="button btn btn-info btn-sm">Jawab</a>
+                            <a href="/pertanyaan/{{$pertanyaan->id}}" class="button btn btn-success btn-sm">Edit</a>
                         </td>
-
+                        <td>                            
+                            <form action="/pertanyaan/{{$pertanyaan->id}} " method="POST">
+                                {{@csrf_field()}}
+                                @method('DELETE')
+                                <button typen="submit" class="btn btn-danger btn-sm">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>                      
                     </tr>
                     @endforeach
                     

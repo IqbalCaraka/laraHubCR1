@@ -16,8 +16,8 @@ class CreateJawabanTable extends Migration
         Schema::create('jawaban', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('isi')->nullable();
-            $table->timestamp('tanggal_dibuat')->nullable();
-            $table->timestamp('tanggal_diperbarui')->nullable();
+            $table->timestamp('tanggal_dibuat')->useCurrent();
+            $table->timestamp('tanggal_diperbarui')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('pertanyaan_id')->nullable();
             $table->timestamps();
         });

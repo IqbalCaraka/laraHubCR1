@@ -20,6 +20,8 @@
                         
                     </th>
 
+                    
+
                 </thead>
                 
                 <tbody>
@@ -30,8 +32,8 @@
 
                         <td>
                             {{$pertanyaan->isi}}
+                            
                         </td>
-
                     </tr>
                     
                 </tbody>
@@ -54,25 +56,41 @@
                     <td>
                         {{$jawaban->isi}}
                     </td>
+                    <td>
+                        <a href="/jawaban/{{$jawaban->id}}/edit" class="button btn btn-success btn-sm">Edit</a>
+                    </td>
+                    <td>              
+                        <form action="/jawaban/{{$jawaban->id}} " method="POST">
+                            {{@csrf_field()}}
+                            @method('DELETE')
+                            <button typen="submit" class="btn btn-danger btn-sm">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
                 
             </tbody>
         </table>    
     
-        <form action="/jawaban/{{$pertanyaan->id}}" method="POST">
+        <form action="{{isset($editJawaban)? route('jawaban.update', $editJawaban->id):route('jawaban.post', $pertanyaan->id)}}" method="POST">
             {{@csrf_field()}}
+            @if(isset($editJawaban))
+                @method('PUT')
+            @endif
 
 
             <div class="form-group">
                 <label for="isi">Jawab</label>
-                <textarea class="form-control" name="isi" id="isi" cols="2" rows="2" title='Masukan Jawabanmu'></textarea>                
+                <textarea class="form-control" name="isi" id="isi" cols="2" rows="2" title='Masukan Jawabanmu'>{{isset($editJawaban)? $editJawaban->isi:''}}</textarea>                
             </div>
 
             <div class="form-group">
                 <button type="submit"class="btn btn-success my-4 justify-right">
-                Submit
+                    {{isset($editJawaban)? 'Update':'Submit'}}
                 </button>
+                
             </div>
 
         </form>
